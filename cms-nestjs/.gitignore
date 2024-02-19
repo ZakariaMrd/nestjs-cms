@@ -56,4 +56,5 @@ pids
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 #fichier de configuration à ignorer
-\src\config.js
+/src/config.ts
+
