@@ -26,14 +26,15 @@ export class ArticlesController {
     return this.articleService.findAll();
   }
   @Delete(':id')
-  async delete(@Param(':id') id: string) {
+  async deleteArticle(@Param('id') id: string) {
     return this.articleService.delete(id);
   }
+
   @Put(':id')
-  async update(
-    @Param(':id') id: string,
-    @Body() updateArticleDto: UpdateArticleDto,
+  async updateArticle(
+    @Param('id') id: string,
+    @Body() article: UpdateArticleDto,
   ) {
-    return this.articleService.update(id, updateArticleDto);
+    return this.articleService.update(id, article);
   }
 }

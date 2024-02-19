@@ -19,13 +19,20 @@ export class ArticlesService {
   }
   async delete(id: string): Promise<Article> {
     return await this.articleModel.findByIdAndDelete(id);
+    console.log('delete article with id -> ', id);
   }
   async update(
     id: string,
     updateArticleDto: UpdateArticleDto,
   ): Promise<Article> {
-    return await this.articleModel.findByIdAndUpdate(id, updateArticleDto, {
-      new: true,
-    });
+    const updatedArticle = this.articleModel.findByIdAndUpdate(
+      id,
+      updateArticleDto,
+      {
+        new: true,
+      },
+    );
+    console.log(updatedArticle);
+    return updatedArticle;
   }
 }
