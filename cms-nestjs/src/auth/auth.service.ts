@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { ReadUserDto } from './dto/read-user.dto';
 import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -24,8 +25,15 @@ export class AuthService {
     if (!foundUser) {
       throw new NotFoundException('User not found');
     }
-    if (foundUser.password !== readUserDto.password) {
+    /*     if (foundUser.password !== readUserDto.password) {
       throw new NotFoundException('Password is incorrect');
+    } */
+    const match = await bcrypt.compare(
+      readUserDto.password,
+      foundUser.password,
+    );
+    if (!match) {
+      throw new Error('Invalid credentials');
     }
     const payload = {
       createdAt: new Date().toISOString(),
